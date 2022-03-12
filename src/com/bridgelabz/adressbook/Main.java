@@ -15,6 +15,7 @@ public class Main {
             System.out.println("""
                     1 -> Create Contact
                     2 -> Display Contacts
+                    3 -> Edit Contact
                     0 -> Exit
                     """);
             System.out.print("Choice: ");
@@ -27,6 +28,10 @@ public class Main {
                 }
                 case 2 -> {
                     book.getContact();
+                    System.out.println("============================= \n");
+                }
+                case 3 -> {
+                    book.editContact();
                     System.out.println("============================= \n");
                 }
                 case 0 -> {
