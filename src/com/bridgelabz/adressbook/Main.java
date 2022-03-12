@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println("***Welcome to Address Book Program*** \n");
+        System.out.println("-----Welcome to Address Book Program----- \n");
         AddressBook book = new AddressBook();
         boolean toggle = true;
         while (toggle) {
@@ -16,6 +16,7 @@ public class Main {
                     1 -> Create Contact
                     2 -> Display Contacts
                     3 -> Edit Contact
+                    4 -> Delete Contact
                     0 -> Exit
                     """);
             System.out.print("Choice: ");
@@ -34,10 +35,15 @@ public class Main {
                     book.editContact();
                     System.out.println("============================= \n");
                 }
+                case 4 -> {
+                    book.deleteContact();
+                    System.out.println("============================= \n");
+                }
                 case 0 -> {
                     System.out.println("Address Book Closed.");
                     toggle = false;
                 }
+                default -> System.out.println("Enter Correct choice.");
             }
         }
     }

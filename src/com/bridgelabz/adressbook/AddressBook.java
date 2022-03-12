@@ -35,6 +35,7 @@ public class AddressBook {
     void editContact(){
         System.out.println("Enter the contact's First Name to be edited: ");
         String firstName = sc.nextLine();
+        boolean check = true;
         for (Contact person : entry){
             if(Objects.equals(person.getFirstName(), firstName)){
                 System.out.println("Enter First Name: ");
@@ -55,10 +56,13 @@ public class AddressBook {
                 person.seteMail(sc.nextLine());
                 System.out.println("\n");
                 entry.set(entry.indexOf(person), person);
+                System.out.println("Contact has been updated!");
+                check = false;
+                break;
             }
-            else{
-                System.out.println("The Contact doesn't Exist.");
-            }
+        }
+        if(check){
+            System.out.println("The Contact doesn't Exist.");
         }
     }
 
@@ -74,6 +78,25 @@ public class AddressBook {
             System.out.println("Phone Number: " + e.phoneNumber);
             System.out.println("E-Mail: " + e.eMail + "\n");
         }
+    }
+
+    void deleteContact(){
+        System.out.println("Enter contact's  first name to be deleted: ");
+        String name = sc.nextLine();
+        boolean check = true;
+        for (Contact person : entry) {
+            if (Objects.equals(person.getFirstName(), name)) {
+                entry.remove(person);
+                System.out.println("Entry Removed! \n");
+                check = false;
+                break;
+            }
+        }
+        if (check){
+            System.out.println("No Such Entry Exists.");
+        }
+
+
     }
 }
 
