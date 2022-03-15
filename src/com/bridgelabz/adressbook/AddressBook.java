@@ -101,6 +101,7 @@ public class AddressBook{
             System.out.println("No Such Entry Exists.");
         }
     }
+
     void bookNavigator() {
         boolean toggle = true;
         while (toggle) {

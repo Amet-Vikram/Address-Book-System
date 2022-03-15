@@ -9,8 +9,6 @@ public class BookDirectory {
     Dictionary<String, AddressBook> mainAddressBook =  new Hashtable<>();
 
     void dirNavigator() {
-        //the whole while loop
-        //add the option to pick a book from the dictionary
         boolean toggle = true;
         while (toggle) {
             System.out.println("""
@@ -53,26 +51,16 @@ public class BookDirectory {
         }
     }
 
-    //create new book
     void newBook(String name){
         mainAddressBook.put(name, new AddressBook(name));
         System.out.println("Created book named " + name);
     }
 
-    @Override
-    public String toString() {
-        return "BookDirectory{" +
-                "mainAddressBook=" + "Success" +
-                '}';
-    }
-
     void displayBooks(){
         System.out.println(mainAddressBook.toString());
-//        return mainAddressBook.toString();
     }
 
     AddressBook openBook(String name){
         return mainAddressBook.get(name);
     }
-
 }
