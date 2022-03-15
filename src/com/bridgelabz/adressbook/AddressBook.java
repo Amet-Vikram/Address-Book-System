@@ -4,10 +4,15 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class AddressBook {
+public class AddressBook{
+    String bookName;
     int index = 0;
     static Scanner sc = new Scanner(System.in);
     static ArrayList<Contact> entry = new ArrayList<>();
+
+    AddressBook(String name){
+        this.bookName = name;
+    }
 
     void setContact(){
         Contact person = new Contact(index);
@@ -95,8 +100,48 @@ public class AddressBook {
         if (check){
             System.out.println("No Such Entry Exists.");
         }
-
-
+    }
+    void bookNavigator() {
+        boolean toggle = true;
+        while (toggle) {
+            System.out.println("Current Book: " + this.bookName + "\n");
+            System.out.println("""
+                    1 -> Create Contact
+                    2 -> Display Contacts
+                    3 -> Edit Contact
+                    4 -> Delete Contact
+                    0 -> Exit to Main Address Book
+                    """);
+            System.out.print("Choice: ");
+            int choice = sc.nextInt();
+            System.out.println("============================= \n");
+            switch (choice) {
+                case 1 -> {
+                    setContact();
+                    System.out.println("============================= \n");
+                }
+                case 2 -> {
+                    getContact();
+                    System.out.println("============================= \n");
+                }
+                case 3 -> {
+                    editContact();
+                    System.out.println("============================= \n");
+                }
+                case 4 -> {
+                    deleteContact();
+                    System.out.println("============================= \n");
+                }
+                case 0 -> {
+                    System.out.println("Address Book Closed. \n");
+                    toggle = false;
+                }
+                default -> {
+                    System.out.println("Enter Correct choice.");
+                    System.out.println("============================= \n");
+                }
+            }
+        }
     }
 }
 
