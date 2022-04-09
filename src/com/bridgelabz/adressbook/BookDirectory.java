@@ -5,8 +5,7 @@ import java.util.*;
 public class BookDirectory {
 
     static Scanner sc = new Scanner(System.in);
-
-    Dictionary<String, AddressBook> mainAddressBook =  new Hashtable<>();
+    Map<String, AddressBook> mainAddressBook =  new Hashtable<>();
 
     void dirNavigator() {
         boolean toggle = true;
@@ -17,6 +16,8 @@ public class BookDirectory {
                     1 -> Create New Book
                     2 -> Display Book
                     3 -> Open A book
+                    4 -> Search People by City
+                    5 -> Search People by State
                     0 -> Exit
                     """);
             System.out.print("Choice: ");
@@ -39,6 +40,16 @@ public class BookDirectory {
                     System.out.println("============================= \n");
                     openBook(bookName).bookNavigator();
                 }
+                case 4 -> {
+                    System.out.println("Enter City: ");
+                    String city = sc.next();
+                    filterCity(city);
+                }
+                case 5 -> {
+                    System.out.println("Enter State: ");
+                    String state = sc.next();
+                    filterState(state);
+                }
                 case 0 -> {
                     System.out.println("Main Book Closed.");
                     toggle = false;
@@ -49,6 +60,26 @@ public class BookDirectory {
                 }
             }
         }
+    }
+
+    void filterCity(String city){
+        for(Map.Entry<String, AddressBook> entry : mainAddressBook.entrySet()){
+            List<Contact> citizens = entry.getValue().getEntry().stream()
+                    .filter(person -> person.getCity().equals(city))
+                    .toList();
+            citizens.forEach(person -> System.out.println(person.getFirstName() + " " + person.getLastName()));
+        }
+        System.out.println("\n");
+    }
+
+    void filterState(String state){
+        for(Map.Entry<String, AddressBook> entry : mainAddressBook.entrySet()){
+            List<Contact> citizens = entry.getValue().getEntry().stream()
+                    .filter(person -> person.getState().equals(state))
+                    .toList();
+            citizens.forEach(person -> System.out.println(person.getFirstName() + " " + person.getLastName()));
+        }
+        System.out.println("\n");
     }
 
     void newBook(String name){
@@ -62,5 +93,14 @@ public class BookDirectory {
 
     AddressBook openBook(String name){
         return mainAddressBook.get(name);
+    }
+
+//    private Map<String, AddressBook> getMainAddressBook() {
+//        return mainAddressBook;
+//    }
+
+    //Temporary Method
+    void addAddressBook(AddressBook ab){
+        mainAddressBook.put(ab.bookName, new AddressBook(ab.bookName));
     }
 }
