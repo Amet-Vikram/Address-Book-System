@@ -11,6 +11,26 @@ public class Contact {
     String phoneNumber;
     String eMail;
 
+    public String getCity() {
+        return city;
+    }
+
+    public Contact(int id, String address, String firstName, String lastName, String city, String state, String zip, String phoneNumber, String eMail) {
+        this.id = id;
+        this.address = address;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.phoneNumber = phoneNumber;
+        this.eMail = eMail;
+    }
+
+    public String getState() {
+        return state;
+    }
+
     Contact(int index){
         this.id = index;
     }
@@ -51,4 +71,7 @@ public class Contact {
         return firstName;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
 }
