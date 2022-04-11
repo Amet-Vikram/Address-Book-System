@@ -1,6 +1,7 @@
 package com.bridgelabz.adressbook;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class BookDirectory {
 
@@ -16,8 +17,7 @@ public class BookDirectory {
                     1 -> Create New Book
                     2 -> Display Book
                     3 -> Open A book
-                    4 -> Search People by City
-                    5 -> Search People by State
+                    4 -> Search People
                     0 -> Exit
                     """);
             System.out.print("Choice: ");
@@ -41,14 +41,8 @@ public class BookDirectory {
                     openBook(bookName).bookNavigator();
                 }
                 case 4 -> {
-                    System.out.println("Enter City: ");
-                    String city = sc.next();
-                    filterCity(city);
-                }
-                case 5 -> {
-                    System.out.println("Enter State: ");
-                    String state = sc.next();
-                    filterState(state);
+                    int option = searchMenu();
+                    handleSearchChoice(option);
                 }
                 case 0 -> {
                     System.out.println("Main Book Closed.");
@@ -62,24 +56,63 @@ public class BookDirectory {
         }
     }
 
-    void filterCity(String city){
-        for(Map.Entry<String, AddressBook> entry : mainAddressBook.entrySet()){
-            List<Contact> citizens = entry.getValue().getEntry().stream()
-                    .filter(person -> person.getCity().equals(city))
-                    .toList();
-            citizens.forEach(person -> System.out.println(person.getFirstName() + " " + person.getLastName()));
-        }
-        System.out.println("\n");
+    int searchMenu(){
+        System.out.println("""
+                Filter people by:
+                1 -> City
+                2 -> State
+                """);
+        System.out.print("Choice: ");
+        return sc.nextInt();
     }
 
-    void filterState(String state){
-        for(Map.Entry<String, AddressBook> entry : mainAddressBook.entrySet()){
-            List<Contact> citizens = entry.getValue().getEntry().stream()
+    void handleSearchChoice(int choice){
+        switch (choice){
+            case 1 -> {
+                System.out.println("\n Enter city: ");
+                String city = sc.next();
+                List<Contact> citizens = filterCity(city);
+                System.out.println("\n ========Found "+ citizens.size() + " people in" + city + "========");
+                citizens.forEach(person -> System.out.println(person.getFirstName() + " " + person.getLastName()));
+                System.out.println("============================= \n");
+            }
+            case 2 -> {
+                System.out.println("Enter state: ");
+                String state = sc.next();
+                List<Contact> citizens = filterState(state);
+                System.out.println("\n ========Found "+ citizens.size() + " people in" + state + "========");
+                citizens.forEach(person -> System.out.println(person.getFirstName() + " " + person.getLastName()));
+                System.out.println("============================= \n");
+            }
+        }
+    }
+
+    List<Contact> filterCity(String city) {
+        List<Contact> citizens = new ArrayList<>();
+
+        for (Map.Entry<String, AddressBook> books : mainAddressBook.entrySet()) {
+            List<Contact> entryContact = books.getValue().entry;
+            List<Contact> filteredContacts = entryContact.stream()
+                    .filter(person -> person.getCity().equals(city))
+                    .toList();
+
+            citizens.addAll(filteredContacts);
+        }
+        return citizens;
+    }
+
+    List<Contact> filterState(String state) {
+        List<Contact> citizens = new ArrayList<>();
+
+        for (Map.Entry<String, AddressBook> books : mainAddressBook.entrySet()) {
+            List<Contact> entryContact = books.getValue().entry;
+            List<Contact> filteredContacts = entryContact.stream()
                     .filter(person -> person.getState().equals(state))
                     .toList();
-            citizens.forEach(person -> System.out.println(person.getFirstName() + " " + person.getLastName()));
+
+            citizens.addAll(filteredContacts);
         }
-        System.out.println("\n");
+        return citizens;
     }
 
     void newBook(String name){
@@ -95,12 +128,16 @@ public class BookDirectory {
         return mainAddressBook.get(name);
     }
 
-//    private Map<String, AddressBook> getMainAddressBook() {
-//        return mainAddressBook;
-//    }
-
     //Temporary Method
     void addAddressBook(AddressBook ab){
         mainAddressBook.put(ab.bookName, new AddressBook(ab.bookName));
     }
+
+    @Override
+    public String toString() {
+        return "BookDirectory{" +
+                "mainAddressBook=" + mainAddressBook + "\n" +
+                '}';
+    }
+
 }

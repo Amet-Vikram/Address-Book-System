@@ -1,10 +1,8 @@
 package com.bridgelabz.adressbook;
 
-import java.util.ArrayList;
-
 public class Main {
 
-        static BookDirectory addContacts(){
+    static BookDirectory addAddressBook(){
         BookDirectory bd = new BookDirectory();
         AddressBook ab1 = new AddressBook("Book1");
         AddressBook ab2 = new AddressBook("Book2");
@@ -13,11 +11,12 @@ public class Main {
         return bd;
     }
 
+
     public static void main(String[] args) {
 
         System.out.println("-----Welcome to Address Book Program----- \n");
-        BookDirectory addressBookMain = addContacts();
-//        BookDirectory addressBookMain = new BookDirectory();
+
+        BookDirectory addressBookMain = addAddressBook();
         addressBookMain.dirNavigator();
     }
 }

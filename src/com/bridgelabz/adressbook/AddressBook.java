@@ -8,7 +8,7 @@ public class AddressBook{
     String bookName;
     int index = 0;
     static Scanner sc = new Scanner(System.in);
-    private ArrayList<Contact> entry = new ArrayList<>();
+    ArrayList<Contact> entry = new ArrayList<>();
 
     AddressBook(String name){
         this.bookName = name;
@@ -165,7 +165,8 @@ public class AddressBook{
     }
 
     public ArrayList<Contact> getEntry() {
-        return this.entry;
+        return entry;
     }
+
 }
 
