@@ -1,8 +1,6 @@
 package com.bridgelabz.adressbook;
 
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class AddressBook{
     String bookName;
@@ -111,8 +109,9 @@ public class AddressBook{
             System.out.println("""
                     1 -> Create Contact
                     2 -> Display Contacts
-                    3 -> Edit Contact
-                    4 -> Delete Contact
+                    3 -> Sort Contacts
+                    4 -> Edit Contacts
+                    5 -> Delete Contact
                     0 -> Exit to Main Address Book
                     """);
             System.out.print("Choice: ");
@@ -129,11 +128,15 @@ public class AddressBook{
                     getContact();
                     System.out.println("============================= \n");
                 }
-                case 3 -> {
+                case 3 ->{
+//                    int option = sortMenu();
+//                    handleSortChoice(option);
+                }
+                case 4 -> {
                     editContact();
                     System.out.println("============================= \n");
                 }
-                case 4 -> {
+                case 5 -> {
                     deleteContact();
                     System.out.println("============================= \n");
                 }
@@ -145,6 +148,47 @@ public class AddressBook{
                     System.out.println("Enter Correct choice.");
                     System.out.println("============================= \n");
                 }
+            }
+        }
+    }
+
+    int sortMenu(){
+        System.out.println("""
+                Sort by:
+                1 -> Alphabet
+                2 -> City
+                3 -> State
+                4 -> Zip
+                """);
+        System.out.print("Choice: ");
+        return sc.nextInt();
+    }
+
+    void handleSortChoice(int option){
+        switch (option){
+            case 1 -> {
+                List<Contact> sorted = entry.stream()
+                        .sorted(Comparator.comparing(Contact::getFirstName))
+                        .toList();
+
+                sorted.forEach(System.out::println);
+            }
+            case 2 -> {
+                List<Contact> sorted = entry.stream()
+                        .sorted(Comparator.comparing(Contact::getCity))
+                        .toList();
+
+                sorted.forEach(System.out::println);
+            }
+            case 3 -> {
+                List<Contact> sorted = entry.stream()
+                        .sorted(Comparator.comparing(Contact::getState))
+                        .toList();
+
+                sorted.forEach(System.out::println);
+            }
+            case 4 -> {
+                //To be done
             }
         }
     }
