@@ -119,8 +119,6 @@ public class AddressBook{
             System.out.println("============================= \n");
             switch (choice) {
                 case 1 -> {
-                    //if entry is null then setContact
-                    //else if th
                     setContact();
                     System.out.println("============================= \n");
                 }
@@ -129,8 +127,8 @@ public class AddressBook{
                     System.out.println("============================= \n");
                 }
                 case 3 ->{
-//                    int option = sortMenu();
-//                    handleSortChoice(option);
+                    int option = sortMenu();
+                    handleSortChoice(option);
                 }
                 case 4 -> {
                     editContact();
@@ -171,45 +169,45 @@ public class AddressBook{
                         .sorted(Comparator.comparing(Contact::getFirstName))
                         .toList();
 
-                sorted.forEach(System.out::println);
+                sorted.forEach(people -> System.out.println(people + "\n"));
             }
             case 2 -> {
                 List<Contact> sorted = entry.stream()
                         .sorted(Comparator.comparing(Contact::getCity))
                         .toList();
 
-                sorted.forEach(System.out::println);
+                sorted.forEach(people -> System.out.println(people + "\n"));
             }
             case 3 -> {
                 List<Contact> sorted = entry.stream()
                         .sorted(Comparator.comparing(Contact::getState))
                         .toList();
 
-                sorted.forEach(System.out::println);
+                sorted.forEach(people -> System.out.println(people + "\n"));
             }
             case 4 -> {
-                //To be done
+                List<Contact> sorted = entry.stream()
+                        .sorted(Comparator.comparing(Contact::getZip))
+                        .toList();
+
+                sorted.forEach(people -> System.out.println(people + "\n"));
             }
         }
     }
 
     void addContact(){
         Contact obj1 = new Contact(1, "SLC", "Amet", "Vikram", "Bhopal", "MP", "462022", "1234", "abc@gmail.com");
-        Contact obj2 = new Contact(2, "BD", "Aashu", "Kumar", "Bhopal", "MP", "462025", "5678", "def@gmail.com");
+        Contact obj2 = new Contact(2, "BD", "Aashu", "Kumar", "Jaipur", "Rajasthan", "462025", "5678", "def@gmail.com");
         Contact obj3 = new Contact(3, "CB", "Arin", "Verma", "Bhopal", "MP", "462052", "3245", "ghi@gmail.com");
-        Contact obj4 = new Contact(4, "TP", "Manju", "Verma", "Gwalior", "MP", "467077", "1245", "asd@gmail.com");
-        Contact obj5 = new Contact(5, "WF", "Jtmayay", "Mkpdh", "BLR", "KTK", "123416", "6969", "bal@gmail.com");
-        Contact obj6 = new Contact(6, "KRMLA", "James", "Bond", "BLR", "KTK", "420696", "4201", "bad@gmail.com");
+        Contact obj4 = new Contact(4, "TP", "Manju", "Verma", "Mumbai", "Maharastra", "467077", "1245", "asd@gmail.com");
+        Contact obj5 = new Contact(5, "WF", "Jtmayay", "Mkpdh", "BLR", "Karnataka", "123416", "6969", "bal@gmail.com");
+        Contact obj6 = new Contact(6, "KRMLA", "James", "Bond", "BLR", "Karnataka", "420696", "4201", "bad@gmail.com");
         entry.add(obj1);
         entry.add(obj2);
         entry.add(obj3);
         entry.add(obj4);
         entry.add(obj5);
         entry.add(obj6);
-    }
-
-    public ArrayList<Contact> getEntry() {
-        return entry;
     }
 
 }

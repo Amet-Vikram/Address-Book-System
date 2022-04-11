@@ -74,4 +74,22 @@ public class Contact {
     public String getLastName() {
         return lastName;
     }
+
+    public String getZip() {
+        return zip;
+    }
+
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address ='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zip='" + zip + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", eMail='" + eMail + '\'' +
+                '}';
+    }
 }
