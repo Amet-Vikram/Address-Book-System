@@ -12,6 +12,11 @@ public class AddressBook{
         this.bookName = name;
     }
 
+    public AddressBook(String bookName, ArrayList<Contact> entry) {
+        this.bookName = bookName;
+        this.entry = entry;
+    }
+
     void setContact(){
         Contact person = new Contact(index);
         System.out.print("Enter First Name: ");
@@ -102,7 +107,7 @@ public class AddressBook{
     }
 
     void bookNavigator() {
-        addContact();
+//        addContact();
         boolean toggle = true;
         while (toggle) {
             System.out.println("Current Book: " + this.bookName + "\n");
@@ -196,12 +201,12 @@ public class AddressBook{
     }
 
     void addContact(){
-        Contact obj1 = new Contact(1, "SLC", "Amet", "Vikram", "Bhopal", "MP", "462022", "1234", "abc@gmail.com");
-        Contact obj2 = new Contact(2, "BD", "Aashu", "Kumar", "Jaipur", "Rajasthan", "462025", "5678", "def@gmail.com");
-        Contact obj3 = new Contact(3, "CB", "Arin", "Verma", "Bhopal", "MP", "462052", "3245", "ghi@gmail.com");
-        Contact obj4 = new Contact(4, "TP", "Manju", "Verma", "Mumbai", "Maharastra", "467077", "1245", "asd@gmail.com");
-        Contact obj5 = new Contact(5, "WF", "Jtmayay", "Mkpdh", "BLR", "Karnataka", "123416", "6969", "bal@gmail.com");
-        Contact obj6 = new Contact(6, "KRMLA", "James", "Bond", "BLR", "Karnataka", "420696", "4201", "bad@gmail.com");
+        Contact obj1 = new Contact(1, "Amet", "Vikram", "SLC", "Bhopal", "MP", "462022", "1234", "abc@gmail.com");
+        Contact obj2 = new Contact(2, "Aashu", "Kumar", "BD", "Jaipur", "Rajasthan", "462025", "5678", "def@gmail.com");
+        Contact obj3 = new Contact(3, "Arin", "Verma", "CB", "Bhopal", "MP", "462052", "3245", "ghi@gmail.com");
+        Contact obj4 = new Contact(4, "Manju", "Verma", "TP", "Mumbai", "Maharastra", "467077", "1245", "asd@gmail.com");
+        Contact obj5 = new Contact(5, "Jtmayay", "Mkpdh", "WF", "BLR", "Karnataka", "123416", "6969", "bal@gmail.com");
+        Contact obj6 = new Contact(6, "James", "Bond", "KRMLA", "BLR", "Karnataka", "420696", "4201", "bad@gmail.com");
         entry.add(obj1);
         entry.add(obj2);
         entry.add(obj3);

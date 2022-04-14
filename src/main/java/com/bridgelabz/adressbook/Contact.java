@@ -2,20 +2,18 @@ package com.bridgelabz.adressbook;
 
 public class Contact {
     int id;
-    String address;
     String firstName;
     String lastName;
+    String address;
     String city;
     String state;
     String zip;
     String phoneNumber;
     String eMail;
 
-    public String getCity() {
-        return city;
-    }
+    public Contact(){}
 
-    public Contact(int id, String address, String firstName, String lastName, String city, String state, String zip, String phoneNumber, String eMail) {
+    public Contact(int id, String firstName, String lastName, String address, String city, String state, String zip, String phoneNumber, String eMail) {
         this.id = id;
         this.address = address;
         this.firstName = firstName;
@@ -25,10 +23,6 @@ public class Contact {
         this.zip = zip;
         this.phoneNumber = phoneNumber;
         this.eMail = eMail;
-    }
-
-    public String getState() {
-        return state;
     }
 
     Contact(int index){
@@ -67,6 +61,22 @@ public class Contact {
         this.eMail = eMail;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String geteMail() {
+        return eMail;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -75,21 +85,29 @@ public class Contact {
         return lastName;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
     public String getZip() {
         return zip;
     }
 
     @Override
     public String toString() {
-        return "Contact{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", address ='" + address + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", zip='" + zip + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", eMail='" + eMail + '\'' +
-                '}';
+        return "id=" + id +
+                ", address=" + address +
+                ", firstName=" + firstName +
+                ", lastName=" + lastName +
+                ", city=" + city +
+                ", state=" + state +
+                ", zip=" + zip +
+                ", phoneNumber=" + phoneNumber +
+                ", eMail=" + eMail;
     }
 }
+
