@@ -64,6 +64,7 @@ public class BookDirectory {
                     } catch (CsvRequiredFieldEmptyException | CsvDataTypeMismatchException | IOException e) {
                         e.printStackTrace();
                     }
+                    System.out.println("Book stored!");
                 }
                 case 0 -> {
                     System.out.println("Main Book Closed.");
@@ -175,9 +176,23 @@ public class BookDirectory {
     }
 
     void writeBook(AddressBook book) throws CsvRequiredFieldEmptyException, CsvDataTypeMismatchException, IOException {
-        AddressBookCSVIO writer = new AddressBookCSVIO();
-        writer.writeData(book.entry);
-//        writer.writeData();
+        System.out.println("""
+                Store as:
+                1 -> .csv file
+                2 -> .json file
+                """);
+        System.out.print("Choice: ");
+        int choice = sc.nextInt();
+        switch (choice){
+            case 1 -> {
+                AddressBookCSVIO writer = new AddressBookCSVIO();
+                writer.writeData(book.entry);
+            }
+            case 2-> {
+                JSONIO writer = new JSONIO();
+                writer.writeDataJSON(book.entry);
+            }
+        }
     }
 
 }

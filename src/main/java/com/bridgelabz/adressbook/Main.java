@@ -11,7 +11,6 @@ public class Main {
         return bd;
     }
 
-
     public static void main(String[] args) {
 
         System.out.println("-----Welcome to Address Book Program----- \n");

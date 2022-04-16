@@ -47,22 +47,22 @@ public class AddressBook{
         boolean check = true;
         for (Contact person : entry){
             if(Objects.equals(person.getFirstName(), firstName)){
-                System.out.println("Enter First Name: ");
-                person.setFirstName(sc.nextLine());
-                System.out.println("Enter Last Name: ");
-                person.setLastName(sc.nextLine());
-                System.out.println("Enter Address: ");
-                person.setAddress(sc.nextLine());
-                System.out.println("Enter City: ");
-                person.setCity(sc.nextLine());
-                System.out.println("Enter State: ");
-                person.setState(sc.nextLine());
-                System.out.println("Enter Zip Code: ");
-                person.setZip(sc.nextLine());
-                System.out.println("Enter Phone Number: ");
-                person.setPhoneNumber(sc.nextLine());
-                System.out.println("Enter E-Mail: ");
-                person.seteMail(sc.nextLine());
+                System.out.print("Enter First Name: ");
+                person.setFirstName(sc.next());
+                System.out.print("Enter Last Name: ");
+                person.setLastName(sc.next());
+                System.out.print("Enter Address: ");
+                person.setAddress(sc.next());
+                System.out.print("Enter City: ");
+                person.setCity(sc.next());
+                System.out.print("Enter State: ");
+                person.setState(sc.next());
+                System.out.print("Enter Zip Code: ");
+                person.setZip(sc.next());
+                System.out.print("Enter Phone Number: ");
+                person.setPhoneNumber(sc.next());
+                System.out.print("Enter E-Mail: ");
+                person.seteMail(sc.next());
                 System.out.println("\n");
                 entry.set(entry.indexOf(person), person);
                 System.out.println("Contact has been updated!");
