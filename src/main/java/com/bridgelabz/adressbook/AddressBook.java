@@ -1,8 +1,6 @@
 package com.bridgelabz.adressbook;
 
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class AddressBook{
     String bookName;
@@ -12,6 +10,11 @@ public class AddressBook{
 
     AddressBook(String name){
         this.bookName = name;
+    }
+
+    public AddressBook(String bookName, ArrayList<Contact> entry) {
+        this.bookName = bookName;
+        this.entry = entry;
     }
 
     void setContact(){
@@ -44,22 +47,22 @@ public class AddressBook{
         boolean check = true;
         for (Contact person : entry){
             if(Objects.equals(person.getFirstName(), firstName)){
-                System.out.println("Enter First Name: ");
-                person.setFirstName(sc.nextLine());
-                System.out.println("Enter Last Name: ");
-                person.setLastName(sc.nextLine());
-                System.out.println("Enter Address: ");
-                person.setAddress(sc.nextLine());
-                System.out.println("Enter City: ");
-                person.setCity(sc.nextLine());
-                System.out.println("Enter State: ");
-                person.setState(sc.nextLine());
-                System.out.println("Enter Zip Code: ");
-                person.setZip(sc.nextLine());
-                System.out.println("Enter Phone Number: ");
-                person.setPhoneNumber(sc.nextLine());
-                System.out.println("Enter E-Mail: ");
-                person.seteMail(sc.nextLine());
+                System.out.print("Enter First Name: ");
+                person.setFirstName(sc.next());
+                System.out.print("Enter Last Name: ");
+                person.setLastName(sc.next());
+                System.out.print("Enter Address: ");
+                person.setAddress(sc.next());
+                System.out.print("Enter City: ");
+                person.setCity(sc.next());
+                System.out.print("Enter State: ");
+                person.setState(sc.next());
+                System.out.print("Enter Zip Code: ");
+                person.setZip(sc.next());
+                System.out.print("Enter Phone Number: ");
+                person.setPhoneNumber(sc.next());
+                System.out.print("Enter E-Mail: ");
+                person.seteMail(sc.next());
                 System.out.println("\n");
                 entry.set(entry.indexOf(person), person);
                 System.out.println("Contact has been updated!");
@@ -104,15 +107,16 @@ public class AddressBook{
     }
 
     void bookNavigator() {
-        addContact();
+//        addContact();
         boolean toggle = true;
         while (toggle) {
             System.out.println("Current Book: " + this.bookName + "\n");
             System.out.println("""
                     1 -> Create Contact
                     2 -> Display Contacts
-                    3 -> Edit Contact
-                    4 -> Delete Contact
+                    3 -> Sort Contacts
+                    4 -> Edit Contacts
+                    5 -> Delete Contact
                     0 -> Exit to Main Address Book
                     """);
             System.out.print("Choice: ");
@@ -120,8 +124,6 @@ public class AddressBook{
             System.out.println("============================= \n");
             switch (choice) {
                 case 1 -> {
-                    //if entry is null then setContact
-                    //else if th
                     setContact();
                     System.out.println("============================= \n");
                 }
@@ -129,11 +131,15 @@ public class AddressBook{
                     getContact();
                     System.out.println("============================= \n");
                 }
-                case 3 -> {
+                case 3 ->{
+                    int option = sortMenu();
+                    handleSortChoice(option);
+                }
+                case 4 -> {
                     editContact();
                     System.out.println("============================= \n");
                 }
-                case 4 -> {
+                case 5 -> {
                     deleteContact();
                     System.out.println("============================= \n");
                 }
@@ -149,23 +155,64 @@ public class AddressBook{
         }
     }
 
+    int sortMenu(){
+        System.out.println("""
+                Sort by:
+                1 -> Alphabet
+                2 -> City
+                3 -> State
+                4 -> Zip
+                """);
+        System.out.print("Choice: ");
+        return sc.nextInt();
+    }
+
+    void handleSortChoice(int option){
+        switch (option){
+            case 1 -> {
+                List<Contact> sorted = entry.stream()
+                        .sorted(Comparator.comparing(Contact::getFirstName))
+                        .toList();
+
+                sorted.forEach(people -> System.out.println(people + "\n"));
+            }
+            case 2 -> {
+                List<Contact> sorted = entry.stream()
+                        .sorted(Comparator.comparing(Contact::getCity))
+                        .toList();
+
+                sorted.forEach(people -> System.out.println(people + "\n"));
+            }
+            case 3 -> {
+                List<Contact> sorted = entry.stream()
+                        .sorted(Comparator.comparing(Contact::getState))
+                        .toList();
+
+                sorted.forEach(people -> System.out.println(people + "\n"));
+            }
+            case 4 -> {
+                List<Contact> sorted = entry.stream()
+                        .sorted(Comparator.comparing(Contact::getZip))
+                        .toList();
+
+                sorted.forEach(people -> System.out.println(people + "\n"));
+            }
+        }
+    }
+
     void addContact(){
-        Contact obj1 = new Contact(1, "SLC", "Amet", "Vikram", "Bhopal", "MP", "462022", "1234", "abc@gmail.com");
-        Contact obj2 = new Contact(2, "BD", "Aashu", "Kumar", "Bhopal", "MP", "462025", "5678", "def@gmail.com");
-        Contact obj3 = new Contact(3, "CB", "Arin", "Verma", "Bhopal", "MP", "462052", "3245", "ghi@gmail.com");
-        Contact obj4 = new Contact(4, "TP", "Manju", "Verma", "Gwalior", "MP", "467077", "1245", "asd@gmail.com");
-        Contact obj5 = new Contact(5, "WF", "Jtmayay", "Mkpdh", "BLR", "KTK", "123416", "6969", "bal@gmail.com");
-        Contact obj6 = new Contact(6, "KRMLA", "James", "Bond", "BLR", "KTK", "420696", "4201", "bad@gmail.com");
+        Contact obj1 = new Contact(1, "Amet", "Vikram", "SLC", "Bhopal", "MP", "462022", "1234", "abc@gmail.com");
+        Contact obj2 = new Contact(2, "Aashu", "Kumar", "BD", "Jaipur", "Rajasthan", "462025", "5678", "def@gmail.com");
+        Contact obj3 = new Contact(3, "Arin", "Verma", "CB", "Bhopal", "MP", "462052", "3245", "ghi@gmail.com");
+        Contact obj4 = new Contact(4, "Manju", "Verma", "TP", "Mumbai", "Maharastra", "467077", "1245", "asd@gmail.com");
+        Contact obj5 = new Contact(5, "Jtmayay", "Mkpdh", "WF", "BLR", "Karnataka", "123416", "6969", "bal@gmail.com");
+        Contact obj6 = new Contact(6, "James", "Bond", "KRMLA", "BLR", "Karnataka", "420696", "4201", "bad@gmail.com");
         entry.add(obj1);
         entry.add(obj2);
         entry.add(obj3);
         entry.add(obj4);
         entry.add(obj5);
         entry.add(obj6);
-    }
-
-    public ArrayList<Contact> getEntry() {
-        return entry;
     }
 
 }

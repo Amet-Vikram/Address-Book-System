@@ -1,7 +1,10 @@
 package com.bridgelabz.adressbook;
 
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+
+import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class BookDirectory {
 
@@ -18,6 +21,8 @@ public class BookDirectory {
                     2 -> Display Book
                     3 -> Open A book
                     4 -> Search People
+                    5 -> Read Book from File
+                    6 -> Write Book to File
                     0 -> Exit
                     """);
             System.out.print("Choice: ");
@@ -44,6 +49,23 @@ public class BookDirectory {
                     int option = searchMenu();
                     handleSearchChoice(option);
                 }
+                case 5 -> {
+                    System.out.println("What do you want to call this book?: ");
+                    String bookName = sc.next();
+                    readBook(bookName);  //should add this file
+                    System.out.println(bookName + " added to Main Address Book. \n");
+                }
+                case 6 -> {
+                    System.out.println("Enter the Book Name to be stored: ");
+                    String bookName = sc.next();
+                    AddressBook thisBook = openBook(bookName);
+                    try {
+                        writeBook(thisBook);
+                    } catch (CsvRequiredFieldEmptyException | CsvDataTypeMismatchException | IOException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("Book stored!");
+                }
                 case 0 -> {
                     System.out.println("Main Book Closed.");
                     toggle = false;
@@ -69,10 +91,12 @@ public class BookDirectory {
     void handleSearchChoice(int choice){
         switch (choice){
             case 1 -> {
-                System.out.println("\n Enter city: ");
+                System.out.print("\n");
+                System.out.println("Enter city: ");
                 String city = sc.next();
                 List<Contact> citizens = filterCity(city);
-                System.out.println("\n ========Found "+ citizens.size() + " people in" + city + "========");
+                System.out.print("\n");
+                System.out.println("========Found "+ citizens.size() + " contact in " + city + "========");
                 citizens.forEach(person -> System.out.println(person.getFirstName() + " " + person.getLastName()));
                 System.out.println("============================= \n");
             }
@@ -138,6 +162,37 @@ public class BookDirectory {
         return "BookDirectory{" +
                 "mainAddressBook=" + mainAddressBook + "\n" +
                 '}';
+    }
+
+    void readBook(String bookName){
+        AddressBookCSVIO reader = new AddressBookCSVIO();
+        ArrayList<Contact> newList = null;
+        try {
+            newList = reader.readData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mainAddressBook.put(bookName, new AddressBook(bookName, newList));
+    }
+
+    void writeBook(AddressBook book) throws CsvRequiredFieldEmptyException, CsvDataTypeMismatchException, IOException {
+        System.out.println("""
+                Store as:
+                1 -> .csv file
+                2 -> .json file
+                """);
+        System.out.print("Choice: ");
+        int choice = sc.nextInt();
+        switch (choice){
+            case 1 -> {
+                AddressBookCSVIO writer = new AddressBookCSVIO();
+                writer.writeData(book.entry);
+            }
+            case 2-> {
+                JSONIO writer = new JSONIO();
+                writer.writeDataJSON(book.entry);
+            }
+        }
     }
 
 }
